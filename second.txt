@@ -1,0 +1,13 @@
+select 
+SUBSTRING  (a.org_inn, 1,2)
+,case  
+	when length (b.suppl_inn)=12 then 'физ.лицо'
+    else 'юр.лицо'
+end as person
+,count(*)ord_id
+from  public.orders as a
+left join public.contracts as b
+on a.id=b.id
+where 1=1
+group by a.org_inn,b.suppl_inn order by a.org_inn
+
